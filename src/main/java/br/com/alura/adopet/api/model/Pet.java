@@ -1,5 +1,6 @@
 package br.com.alura.adopet.api.model;
 
+import br.com.alura.adopet.api.dto.CadastroPetDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -17,27 +18,27 @@ public class Pet {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @NotNull
+
     @Column(name = "tipo")
     private TipoPet tipo;
 
-    @NotBlank
+
     @Column(name = "nome")
     private String nome;
 
-    @NotBlank
+
     @Column(name = "raca")
     private String raca;
 
-    @NotNull
+
     @Column(name = "idade")
     private Integer idade;
 
-    @NotBlank
+
     @Column(name = "cor")
     private String cor;
 
-    @NotNull
+
     @Column(name = "peso")
     private Float peso;
 
@@ -52,6 +53,20 @@ public class Pet {
     @OneToOne(mappedBy = "pet")
     @JsonBackReference("adocao_pets")
     private Adocao adocao;
+
+    public Pet(){
+
+    }
+
+    public Pet(CadastroPetDto dto) {
+        this.tipo = dto.tipo();
+        this.nome = dto.nome();
+        this.raca = dto.raca();
+        this.idade = dto.idade();
+        this.cor = dto.cor();
+        this.peso = dto.peso();
+        this.adotado = false;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -134,7 +149,7 @@ public class Pet {
         return abrigo;
     }
 
-    public void setAbrigo(Abrigo abrigo) {
+    public void atribuirAbrigo(Abrigo abrigo) {
         this.abrigo = abrigo;
     }
 
