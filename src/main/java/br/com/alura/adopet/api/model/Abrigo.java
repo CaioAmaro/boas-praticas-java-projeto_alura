@@ -18,22 +18,15 @@ public class Abrigo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column(name = "nome")
     private String nome;
 
-
-    @Column(name = "telefone")
     private String telefone;
 
-    @Email
-    @Column(name = "email")
     private String email;
 
-    @OneToMany(mappedBy = "abrigo", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonManagedReference("abrigo_pets")
+    @OneToMany(mappedBy = "abrigo", cascade = CascadeType.ALL)
     private List<Pet> pets = new ArrayList<>();
 
     public Abrigo(){
